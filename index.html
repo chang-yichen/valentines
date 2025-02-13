@@ -53,6 +53,20 @@
             max-width: 600px;
             text-align: center;
         }
+
+        .petal {
+            position: absolute;
+            width: 20px; /* Small size */
+            height: 40px; /* Small size */
+            opacity: 0.6;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh); /* Fall to the bottom */
+            }
+        }
     </style>
 </head>
 <body>
@@ -97,6 +111,25 @@
         window.onload = () => {
             displayWords(0);
         };
+
+        function createPetal() {
+            const petal = document.createElement('img');
+            petal.src = 'petal.png'; // Replace with the path to your petal image
+            petal.className = 'petal';
+            petal.style.width = '40px'; // Set the width to make it small
+            petal.style.height = 'auto'; // Maintain aspect ratio
+            petal.style.left = Math.random() * window.innerWidth + 'px'; // Random horizontal position
+            petal.style.animationDuration = 3 + 2 + 's'; // Random fall duration
+            document.body.appendChild(petal);
+
+            // Remove petal after animation ends
+            petal.addEventListener('animationend', () => {
+                petal.remove();
+            });
+        }
+
+        // Create petals at intervals
+        setInterval(createPetal, 500); 
     </script>
 </body>
 </html>
